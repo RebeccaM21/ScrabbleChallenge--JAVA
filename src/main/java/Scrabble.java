@@ -1,43 +1,20 @@
-import com.sun.org.apache.bcel.internal.generic.DCONST;
-
-import java.lang.reflect.Array;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Scrabble {
 
-    int score = 0;
+    int score;
     String wordInput;
     HashMap<Character, Integer> letterValues = new HashMap<Character, Integer>();
 
     public Scrabble(String value) {
         this.wordInput = value;
-        this.score = this.score();
+        this.score = 0;
+        scoreCounter();
     }
 
     public Scrabble(String value, Character[] letter, Character[] letter2, boolean letterTrue, boolean letterFalse) {
         this.wordInput = value;
-        this.score = 0;
-//        arrOfStr = this.wordInput.split("");
-    }
-
-//    String[] arrOfStr = this.wordInput.split("");
-
-    public int score() {
-        if (this.wordInput == null) {
-            return 0;
-        }
-        return this.score;
-    }
-
-    public int calculateScore () {
-        String[] arrOfStr = this.wordInput.split("");
-        for (String a : arrOfStr) {
-            score += scoreCounter.get(a);
-        }
-
-        public int getScoreCounter(input) {
-                letterValues.get(input)
-        }
     }
 
     public void scoreCounter() {
@@ -68,5 +45,21 @@ public class Scrabble {
         letterValues.put('Q', 10);
         letterValues.put('Z', 10);
     }
-}
 
+
+    public int score() {
+        if (this.wordInput == null) {
+            return 0;
+        }
+        this.wordInput = this.wordInput.toUpperCase();
+
+        char[] chars = this.wordInput.toCharArray();
+
+        for (char aChar : chars) {
+            if (letterValues != null && letterValues.containsKey(aChar)) {
+                score += letterValues.get(aChar);
+            }
+        }
+        return score;
+    }
+}
