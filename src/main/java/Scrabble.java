@@ -1,11 +1,14 @@
 import java.util.HashMap;
-import java.util.Map;
 
 public class Scrabble {
 
     int score;
     String wordInput;
     HashMap<Character, Integer> letterValues = new HashMap<Character, Integer>();
+    Character[] doubleLetter;
+    Character[] tripleLetter;
+    boolean doubleWord;
+    boolean tripleWord;
 
     public Scrabble(String value) {
         this.wordInput = value;
@@ -13,8 +16,12 @@ public class Scrabble {
         scoreCounter();
     }
 
-    public Scrabble(String value, Character[] letter, Character[] letter2, boolean letterTrue, boolean letterFalse) {
+    public Scrabble(String value, Character[] doubleLetter, Character[] tripleLetter, boolean doubleWord, boolean tripleWord) {
         this.wordInput = value;
+        this.score = 0;
+        scoreCounter();
+        this.doubleWord = doubleWord;
+        this.tripleWord = tripleWord;
     }
 
     public void scoreCounter() {
@@ -52,14 +59,25 @@ public class Scrabble {
             return 0;
         }
         this.wordInput = this.wordInput.toUpperCase();
+        multiLetterWord();
+        return score;
+    }
 
+    public void calculateScore() {
         char[] chars = this.wordInput.toCharArray();
-
         for (char aChar : chars) {
             if (letterValues != null && letterValues.containsKey(aChar)) {
                 score += letterValues.get(aChar);
             }
         }
-        return score;
+    }
+
+    public void multiLetterWord() {
+        calculateScore();
+        if (doubleWord) {
+            score = score * 2;
+        } else if (tripleWord) {
+            score = score * 3;
+        }
     }
 }
